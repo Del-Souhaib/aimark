@@ -2,6 +2,7 @@
 # Create your models here.
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.datetime_safe import datetime
 
 
 class Mark(models.Model):
@@ -10,7 +11,10 @@ class Mark(models.Model):
     image = models.ImageField(max_length=100, null=False)
     desctiption = models.CharField(max_length=500, null=False)
     gravity = models.IntegerField(null=False)
-    created_at = models.DateField(null=False)
+    created_at = models.DateField(default=datetime.now,null=False)
+
+    def __str__(self):
+        return self.name
 
 
 class Mark_x_y(models.Model):
