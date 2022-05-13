@@ -57,8 +57,10 @@
                                                 </td>
                                                 <td> {{ dat.created_at }}</td>
                                                 <td>
-                                                    <a href="/admins/marks/edit/{{ dat.id }}" class="btn btn-sm btn-success ">Update</a>
-                                                    <a href="" class="btn btn-sm btn-danger ">Delete</a>
+                                                    <a href="/admins/marks/edit/{{ dat.id }}"
+                                                       class="btn btn-sm btn-success ">Edit</a>
+                                                    <a href="#" class="btn btn-sm btn-danger deletemark"
+                                                       markid="{{ dat.id }}">Delete</a>
 
                                                 </td>
                                             </tr>
@@ -77,10 +79,48 @@
             {% include 'parts/_footer.html' %}
             <!-- partial -->
         </div>
+        <!-- Button trigger modal -->
+
+
         <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
 </div>
 {% include 'parts/jsfiles.html' %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="deletemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" action="/admins/marks/delete" class="modal-content">
+            <input type="hidden" name="markid" id="markid" value="">
+            {% csrf_token %}
+            <div class="modal-header justify-content-end border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-center ">
+                    <i class="mdi mdi-alert-circle mr-4" style="font-size: 60px;color: orange"></i>
+
+                    <p>Do your really want delete this mark?</p>
+                </div>
+
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.deletemark').click(function () {
+            $('#markid').attr('value', $(this).attr('markid'))
+            $('#deletemodal').modal('show')
+        })
+
+    })
+</script>
 </body>
 </html>

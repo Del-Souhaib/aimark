@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 
 def loginauth(request):
     if request.user.is_authenticated:
-        return redirect('/admins')
+        return redirect('/admins/')
     else:
         return render(request, 'auth/login.html')
 
@@ -19,7 +19,7 @@ def loginclick(request):
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None:
             login(request, user)
-            return redirect('/admins')
+            return redirect('/admins/')
         # A backend authenticated the credentials
         else:
             messages.error(request, "Email ou mot de passe est incorrect")
@@ -34,4 +34,4 @@ def logoutclick(request):
         logout(request)
         return redirect('/admins/login')
     else:
-        return redirect('/admins')
+        return redirect('/admins/')

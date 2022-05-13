@@ -9,7 +9,7 @@ class MarkForm(forms.Form):
                                   widget=forms.HiddenInput)
     title = forms.CharField(label='Title', max_length=100, required=True
                            ,widget=forms.TextInput(attrs={'class': 'form-control'}))
-    image = forms.ImageField(label='Image', max_length=100, required=True,
+    image = forms.ImageField(label='Image', max_length=100, required=False,
                              widget=forms.FileInput(attrs={'class': 'form-control'}),)
     desctiption = forms.CharField(label='Description', max_length=500, required=True
                                   , widget=forms.Textarea(attrs={'class': 'form-control','rows':'3'}))
