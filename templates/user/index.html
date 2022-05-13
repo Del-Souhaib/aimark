@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <title>Users</title>
+    {% include 'parts/cssfiles.html' %}
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    {% include 'parts/_sidebar.html' %}
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_navbar.html -->
+        {% include 'parts/_navbar.html' %}
+
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Users</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                                                                        <th> Image</th>
+                                            <th> Username</th>
+                                            <th> Email</th>
+                                            <th> Joined at</th>
+                                            <th> Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for dat in data %}
+                                            <tr>
+                                                <td class="py-1">
+                                                    <img src="{% static 'assets/images/faces-clipart/pic-1.png' %}"
+                                                         alt="image"/>
+                                                </td>
+                                                <td> {{ dat.username }}</td>
+                                                <td> {{ dat.email }}</td>
+                                                <td> {{ dat.date_joined }}</td>
+                                                <td>
+                                                    <a href="/admins/users/edit/{{ dat.id }}"
+                                                       class="btn btn-sm btn-success ">Edit</a>
+                                                    <a href="#" class="btn btn-sm btn-danger deleteuser"
+                                                       userid="{{ dat.id }}">Delete</a>
+
+                                                </td>
+                                            </tr>
+
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            {% include 'parts/_footer.html' %}
+            <!-- partial -->
+        </div>
+        <!-- Button trigger modal -->
+
+
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+{% include 'parts/jsfiles.html' %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="deletemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" action="/admins/users/delete" class="modal-content">
+            <input type="hidden" name="userid" id="userid" value="">
+            {% csrf_token %}
+            <div class="modal-header justify-content-end border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-center ">
+                    <i class="mdi mdi-alert-circle mr-4" style="font-size: 60px;color: orange"></i>
+
+                    <p>Do your really want delete this user?</p>
+                </div>
+
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.deleteuser').click(function () {
+            $('#userid').attr('value', $(this).attr('userid'))
+            $('#deletemodal').modal('show')
+        })
+
+    })
+</script>
+</body>
+</html>

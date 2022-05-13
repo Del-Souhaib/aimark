@@ -106,6 +106,9 @@
 /* === Import template variables === */
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
+input {
+    color: white !important;
+}
 @-moz-keyframes flash {
     0% {
         opacity: 1;
