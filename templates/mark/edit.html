@@ -65,6 +65,9 @@
                                                     </div>
 
                                                 </div>
+                                                {{ form.descx }}
+                                                {{ form.descy }}
+
                                             </div>
                                         </div>
 
@@ -87,7 +90,7 @@
                                         </div>
                                         <div class="col-md-12">
 
-                                            <canvas id="markimagecanvas" style="width: 100%;height: 100%">
+                                            <canvas id="markimagecanvas" style="width: 70vw">
 
                                             </canvas>
                                             <img src="{{ form.image.value.url }}" id="markimage"
@@ -152,13 +155,14 @@
     raster.position = view.center;
     raster.scale(0.3);
 
+
     var path = new Path();
-    path.selected=true;
+    path.selected = true;
     {#path.strokeColor = 'black';#}
     path.strokeColor = '#474343';
     path.strokeWidth = 5;
     path.strokeCap = 'round';
-path.dashArray = [10, 12];
+    path.dashArray = [10, 12];
     {#var point = new Point(400, 300);#}
     {#path.add(point);#}
 
@@ -167,12 +171,54 @@ path.dashArray = [10, 12];
         path.insert({{ point.num }}, new Point({{ point.x }}, {{ point.y }}));
 
         {% if points.last %}
-            newcounter={{ point.num }}
+            newcounter ={{ point.num }}
         {% endif %}
     {% endfor %}
     {#path.removeSegments();#}
 
+
+    var text = new PointText();
+    var x = {% if form.descx.value %}  {{ form.descx.value }} {% else %} 200 {% endif %};
+    var y = {% if form.descy.value %}  {{ form.descy.value }} {% else %} 50 {% endif %};
+    console.log(x + ' , ' + y)
+    var step = 10;
+    text.justification = 'right';
+    text.fillColor = 'white';
+    text.fontSize = 20;
+    text.content = '{{ form.desctiption.value }}';
+    text.position = new Point(x, y);
+    text.shadowColor = 'black';
+    text.shadowBlur = 7;
+    {#text.shadowOffset= new Point(10, 10);#}
+
+    function onKeyDown(event) {
+        if (event.key == 'q' && event.modifiers.shift) {
+            x -= step;
+        }
+
+        if (event.key == 'd' && event.modifiers.shift) {
+            x += step;
+        }
+
+        if (event.key == 'z' && event.modifiers.shift) {
+            y -= step;
+        }
+
+        if (event.key == 's' && event.modifiers.shift) {
+            y += step;
+        }
+        text.position = new Point(x, y);
+
+    }
+
+    function onKeyUp(event) {
+        $('#descx').val(x)
+        $('#descy').val(y)
+
+    }
+
     function onMouseDown(event) {
+
         // Create a path:
         // Add the mouse down position:
         $.ajax({

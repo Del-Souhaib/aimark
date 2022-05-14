@@ -13,6 +13,8 @@ class Mark(models.Model):
     name = models.CharField(max_length=100, null=False)
     image = models.ImageField(max_length=100, null=False,upload_to='marks/')
     desctiption = models.CharField(max_length=500, null=False)
+    descx = models.FloatField(null=False)
+    descy = models.FloatField(null=False)
     gravity = models.IntegerField(null=False)
     created_at = models.DateField(default=datetime.now,null=False)
 

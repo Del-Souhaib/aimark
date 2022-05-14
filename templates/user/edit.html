@@ -22,7 +22,7 @@
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Edit mark</h4>
+                                <h4 class="card-title">Edit user</h4>
                                 <form class="form-sample" method="POST" action="/admins/marks/edit/{{ form.id.value }}"
                                       enctype="multipart/form-data">
                                     {% csrf_token %}
@@ -31,22 +31,58 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">{{ form.title.label }}</label>
+                                                <label class="col-sm-3 col-form-label">{{ form.username.label }}</label>
                                                 <div class="col-sm-9">
-                                                    {{ form.title }}
+                                                    {{ form.username }}
                                                     <div class="text-danger text-small">
-                                                        {{ form.title.errors }}
+                                                        {{ form.username.errors }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">{{ form.gravity.label }}</label>
+                                                <label class="col-sm-3 col-form-label">{{ form.email.label }}</label>
                                                 <div class="col-sm-9">
-                                                    {{ form.gravity }}
+                                                    {{ form.email }}
                                                     <div class="text-danger text-small">
-                                                        {{ form.gravity.errors }}
+                                                        {{ form.email.errors }}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="card-description"> Password </p>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label"
+                                               for="changepassword">Change Password</label>
+                                        <div class="col-sm-9">
+                                            <input type="checkbox" name="changepassword" id="changepassword"/>
+                                        </div>
+                                    </div>
+                                    <div class="row  passwordarea mt-4" etat="hidden" style="display: none">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label"
+                                                       for="description">{{ form.password.label }}</label>
+                                                <div class="col-sm-9">
+                                                    {{ form.password }}
+                                                    <div class="text-danger text-small">
+                                                        {{ form.password.errors }}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">{{ form.verifypassword.label }}</label>
+                                                <div class="col-sm-9">
+                                                    {{ form.verifypassword }}
+                                                    <div class="text-danger text-small">
+                                                        {{ form.verifypassword.errors }}
                                                     </div>
 
                                                 </div>
@@ -54,56 +90,11 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label"
-                                                       for="description">{{ form.desctiption.label }}</label>
-                                                <div class="col-sm-9">
-                                                    {{ form.desctiption }}
-                                                    <div class="text-danger text-small">
-                                                        {{ form.desctiption.errors }}
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">{{ form.image.label }}</label>
-                                                <div class="col-sm-9">
-                                                    {{ form.image }}
-                                                    <div class="text-danger text-small">
-                                                        {{ form.image.errors }}
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-12 mt-3 mb-5">
                                             <button class="btn btn-success mr-5">Save</button>
-                                            <button class="btn btn-danger" type="button" id="deleteallpoints">Reset
-                                            </button>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <canvas id="markimagecanvas" style="width: 100%;height: 100%">
-
-                                            </canvas>
-                                            <img src="{{ form.image.value.url }}" id="markimage"
-                                                 style="display: none;width: 100%;height: 100%">
 
                                         </div>
-
-
                                     </div>
-                                    {#                                    <p class="card-description"> Marks </p>#}
-                                    {#                                    <div class="row">#}
-                                    {#                                        <div class="col-md-12">#}
-                                    {#                                            <img src="" style="width: 100%" height="100%">#}
-                                    {#                                        </div>#}
-                                    {#                                    </div>#}
-
                                 </form>
                             </div>
                         </div>
@@ -121,91 +112,19 @@
 </div>
 {% include 'parts/jsfiles.html' %}
 
-<div class="modal fade" id="deletemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form method="post" action="/admins/marks/points/delete/{{ form.id.value }}" class="modal-content">
-            {% csrf_token %}
-            <div class="modal-header justify-content-end border-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex align-items-center ">
-                    <i class="mdi mdi-alert-circle mr-4" style="font-size: 60px;color: orange"></i>
 
-                    <p>Do your really want delete all points?</p>
-                </div>
-
-            </div>
-            <div class="modal-footer border-0">
-                <button class="btn btn-danger">Delete</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-{#<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>#}
-<script type="text/paperscript" canvas="markimagecanvas">
-    // Load from Server:
-    var newcounter = 0
-    var raster = new Raster('markimage');
-
-    raster.position = view.center;
-    raster.scale(0.3);
-
-    var path = new Path();
-    path.selected=true;
-    {#path.strokeColor = 'black';#}
-    path.strokeColor = '#474343';
-    path.strokeWidth = 5;
-    path.strokeCap = 'round';
-path.dashArray = [10, 12];
-    {#var point = new Point(400, 300);#}
-    {#path.add(point);#}
-
-    {% for point in points %}
-        console.log({{ point.num }})
-        path.insert({{ point.num }}, new Point({{ point.x }}, {{ point.y }}));
-
-        {% if points.last %}
-            newcounter={{ point.num }}
-        {% endif %}
-    {% endfor %}
-    {#path.removeSegments();#}
-
-    function onMouseDown(event) {
-        // Create a path:
-        // Add the mouse down position:
-        $.ajax({
-            url: '/admins/marks/points/add/{{ form.id.value }}',
-            method: 'post',
-            data: {
-                {#'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,#}
-                'csrfmiddlewaretoken': '{{ csrf_token }}',
-                'count': newcounter++,
-                'x': event.point.x,
-                'y': event.point.y
-            },
-            success: function (e) {
-                path.insert(newcounter, event.point);
-                console.log(newcounter)
-
-            },
-            error: function (e) {
-                console.log(e.responseText)
-            }
-
-        })
-
-
-    }
-
-
-</script>
 <script>
     $(document).ready(function () {
-        $('#deleteallpoints').click(function () {
-            $('#deletemodal').modal('show')
+        $('#changepassword').click(function () {
+            target = $('.passwordarea')
+            if (target.attr('etat') == 'hidden') {
+                target.attr('etat', 'show')
+                target.show()
+            } else {
+                target.attr('etat', 'hidden')
+                target.hide()
 
+            }
         })
     })
 </script>

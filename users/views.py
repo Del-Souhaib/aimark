@@ -50,7 +50,7 @@ def edit(request, id):
             # mark.user = request.user.id
             user.username = form.cleaned_data['username']
             user.email = form.cleaned_data['email']
-            if form.cleaned_data['password']:
+            if form.cleaned_data['changepassword']:
                 user.password = form.cleaned_data['password']
 
             user.save()
@@ -65,7 +65,7 @@ def edit(request, id):
             'username': user.username,
             'email': user.email,
         })
-
+        
         return render(request, 'user/edit.html', {'form': form})
 
 
