@@ -176,10 +176,9 @@
     {% endfor %}
     {#path.removeSegments();#}
 
-
     var text = new PointText();
-    var x = {% if form.descx.value %}  {{ form.descx.value }} {% else %} 200 {% endif %};
-    var y = {% if form.descy.value %}  {{ form.descy.value }} {% else %} 50 {% endif %};
+    var x = {% if  form.descx.value == None  %} 200 {% else %} {{ form.descx.value }} {% endif %};
+    var y = {% if form.descy.value == None %}  50 {% else %} {{ form.descy.value }} {% endif %};
     console.log(x + ' , ' + y)
     var step = 10;
     text.justification = 'right';

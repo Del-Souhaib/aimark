@@ -16,8 +16,8 @@ class MarkForm(forms.Form):
     gravity = forms.IntegerField(label='Gravity', required=True
                                  , widget=forms.NumberInput(attrs={'class': 'form-range', 'type': 'range'
             , 'min': '1', 'max': '10'}))
-    descx = forms.FloatField(required=False, widget=forms.HiddenInput(attrs={'id':'descx'}))
-    descy = forms.FloatField(required=False, widget=forms.HiddenInput(attrs={'id':'descy'}))
+    descx = forms.FloatField(required=False, widget=forms.HiddenInput(attrs={'id': 'descx'}))
+    descy = forms.FloatField(required=False, widget=forms.HiddenInput(attrs={'id': 'descy'}))
 
     created_at = forms.DateField(label='Created_at', required=False)
 

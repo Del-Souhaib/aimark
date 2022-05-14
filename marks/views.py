@@ -68,9 +68,12 @@ def edit(request, id):
                 mark.image = form.cleaned_data['image']
 
             mark.gravity = form.cleaned_data['gravity'] * 10
+            mark.descx=form.cleaned_data['descx']
+            mark.descy=form.cleaned_data['descy']
+
             mark.save()
 
-            return redirect('/admins/marks/')
+            return redirect('/admins/marks/edit/'+str(id))
         else:
             return render(request, 'mark/edit.html', {'form': form})
 
@@ -82,6 +85,8 @@ def edit(request, id):
             'desctiption': mark.desctiption,
             'image': mark.image,
             'gravity': mark.gravity / 10,
+            'descx': mark.descx,
+            'descy': mark.descy,
             'created_at': mark.created_at,
         })
         points = Point.objects.filter(mark=id)

@@ -21,11 +21,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('admins/', include('authenticate.urls')),
-    path('admins/marks/', include('marks.urls')),
-    path('admins/users/', include('users.urls')),
+                  # path('admin/', admin.site.urls),
+                  path('admins/', include('authenticate.urls')),
+                  path('admins/marks/', include('marks.urls')),
+                  path('admins/users/', include('users.urls')),
 
-    path('admins/', adminviews.home),
+                  path('admins/', adminviews.home),
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('api-auth/', include('rest_framework.urls'))
+
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
