@@ -22,5 +22,5 @@ class MarkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mark
-        fields = ['url', 'user','points', 'name', 'image', 'desctiption', 'descx', 'descy', 'gravity',
+        fields = [ 'id','user','points', 'name', 'image', 'desctiption', 'descx', 'descy', 'gravity',
                   'created_at']
