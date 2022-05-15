@@ -23,7 +23,7 @@ class Mark(models.Model):
 
 
 class Point(models.Model):
-    mark = models.ForeignKey(Mark, on_delete=models.CASCADE)
+    mark = models.ForeignKey(Mark,related_name='points', on_delete=models.CASCADE)
     num = models.IntegerField(null=False,default=1)
     x = models.FloatField(null=False)
     y = models.FloatField(null=False)

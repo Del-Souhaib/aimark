@@ -23,11 +23,8 @@ from api import views as apiviews
 from django.conf.urls.static import static
 from django.conf import settings
 
-
 router = routers.DefaultRouter()
 router.register(r'api/marks', apiviews.MarkViewSet)
-
-
 
 urlpatterns = [
                   # path('admin/', admin.site.urls),
