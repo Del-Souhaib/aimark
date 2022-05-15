@@ -17,8 +17,8 @@ class PointsSerializer(serializers.ModelSerializer):
 
 
 class MarkSerializer(serializers.ModelSerializer):
-    user = UserSerializer(many=False,read_only=False)
-    points = PointsSerializer(many=True, read_only=False)
+    user = UserSerializer(many=False,read_only=True)
+    points = PointsSerializer(many=True, read_only=True)
 
     class Meta:
         model = Mark

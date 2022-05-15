@@ -21,7 +21,7 @@ class MarkViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
-        return HttpResponse(serializer)
+        # return HttpResponse(serializer)
 
     def get_queryset(self):
         return Mark.objects.all()
