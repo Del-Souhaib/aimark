@@ -13,14 +13,15 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PointsSerializer(serializers.ModelSerializer):
+    mark_id=serializers.IntegerField()
     class Meta:
         model = Point
-        fields = ['id', 'num', 'x', 'y']
+        fields = ['mark_id', 'num', 'x', 'y']
 
 
 class MarkSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
-    points = PointsSerializer(many=True, read_only=True,required=False)
+    points = PointsSerializer(many=True, read_only=True, required=False)
     image = serializers.CharField()
     created_at = serializers.DateField(default=datetime.date.today())
 

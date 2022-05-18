@@ -24,14 +24,16 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 router = routers.DefaultRouter()
-router.register(r'api/marks', apiviews.MarkViewSet, basename="perform_create")
-router.register(r'api/users', apiviews.UserViewSet)
+# router.register(r'api/marks', apiviews.MarkViewSet, basename="perform_create")
+# router.register(r'api/users', apiviews.UserViewSet)
 
 urlpatterns = [
                   # path('admin/', admin.site.urls),
                   path('admins/', include('authenticate.urls')),
                   path('admins/marks/', include('marks.urls')),
                   path('admins/users/', include('users.urls')),
+
+                  path('api/marks/', include('api.urls')),
 
                   path('admins/', adminviews.home),
 
