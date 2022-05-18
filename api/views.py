@@ -26,6 +26,9 @@ class MarkViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Mark.objects.all()
 
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+
     # def list(self, request, *args, **kwargs):
     #     queryset = self.get_queryset()
     #     serializer = MarkSerializer(queryset, many=True)

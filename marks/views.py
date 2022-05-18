@@ -3,6 +3,7 @@ import datetime
 import cv2
 from django.contrib.auth.models import User
 from django.core.files.storage import Storage
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -17,7 +18,7 @@ import cv2 as cv
 
 def home(request):
     if request.user.is_authenticated == True:
-        print(cv.__version__)
+        # print(cv.__version__)
         return render(request, 'index.html')
     else:
         return redirect('/admins/login')
@@ -102,6 +103,13 @@ def delete(request):
         mark = Mark.objects.get(id=request.POST['markid'])
         mark.delete()
     return redirect('/admins/marks/')
+
+def search(request):
+    if request.user.is_authenticated == False:
+        return redirect('/admins/login')
+
+    data = Mark.objects.filter(Q(name__contains=request.GET['searchtext']) | Q(desctiption__contains=request.GET['searchtext']))
+    return render(request, 'mark/index.html', {'data': data})
 
 
 def addpoint(request, id):
