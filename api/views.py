@@ -69,11 +69,8 @@ def search(request):
 
 @api_view(['POST'])
 def addpoint(request):
-    # return Response(request.data['mark_id'])
-    # request.data['mark_id'].Mark.objects.get(id=request.data['mark_id'])
     serialize = PointsSerializer(data=request.data)
     if serialize.is_valid():
-        # serialize.initial_data['mark_id']=Mark.objects.get(id=request.data['mark_id'])
         serialize.save()
         return Response(serialize.data)
     else:
