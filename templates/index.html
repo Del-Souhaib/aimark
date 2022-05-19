@@ -120,7 +120,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Gravities chart</h4>
-                                <canvas id="gravities-charts" class="gravities-charts"></canvas>
+                                <canvas id="gravities-charts" class="gravities-charts" height="441" width="441"></canvas>
 
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Mark per user chart</h4>
-                                <canvas id="markperuser-charts" class="markperuser-charts"></canvas>
+                                <canvas id="markperuser-charts" class="markperuser-charts" height="441" width="441"></canvas>
 
                             </div>
                         </div>
@@ -211,24 +211,19 @@
         }
     });
 
-
     const ctx3 = document.getElementById('markperuser-charts');
     const myChart3 = new Chart(ctx3, {
         type: 'bar',
         data: {
-            labels: ['Red', 'Yellow', 'Green'],
+            labels: [ {% for user in  userchart %} '{{ user.username }}', {% endfor %}],
             datasets: [{
-                {#label: '# of Votes',#}
-                data: [{{gravitieschart.redmarks}}, {{gravitieschart.yellowmarks}}, {{gravitieschart.greenmarks}}],
+                label: [{% for user in  userchart %} '{{ user.username }}', {% endfor %}],
+                data: [{% for user in  userchart %} {{ user.nb }}, {% endfor %}],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(42,198,30,0.2)',
+                   {% for user in  userchart %} random_rgba1(), {% endfor %}
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(42,198,30,1)',
+                    {% for user in  userchart %} random_rgba1(), {% endfor %}
                 ],
                 borderWidth: 1
             }]
@@ -244,13 +239,10 @@
 
     function random_rgba1() {
         var o = Math.round, r = Math.random, s = 255;
-        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ',0.2)';
+        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',0.2)';
     }
 
-    function random_rgba2() {
-        var o = Math.round, r = Math.random, s = 255;
-        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
-    }
+
 </script>
 </body>
 </html>

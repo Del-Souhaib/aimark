@@ -23,7 +23,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Edit user</h4>
-                                <form class="form-sample" method="POST" action="/admins/marks/edit/{{ form.id.value }}"
+                                <form class="form-sample" method="POST" action="/admins/users/edit/{{ form.id.value }}"
                                       enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {{ form.user }}
@@ -76,18 +76,18 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">{{ form.verifypassword.label }}</label>
-                                                <div class="col-sm-9">
-                                                    {{ form.verifypassword }}
-                                                    <div class="text-danger text-small">
-                                                        {{ form.verifypassword.errors }}
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
+{#                                        <div class="col-md-6">#}
+{#                                            <div class="form-group row">#}
+{#                                                <label class="col-sm-3 col-form-label">{{ form.verifypassword.label }}</label>#}
+{#                                                <div class="col-sm-9">#}
+{#                                                    {{ form.verifypassword }}#}
+{#                                                    <div class="text-danger text-small">#}
+{#                                                        {{ form.verifypassword.errors }}#}
+{#                                                    </div>#}
+{##}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mt-3 mb-5">

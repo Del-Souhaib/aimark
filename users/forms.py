@@ -14,4 +14,12 @@ class UserForm(forms.Form):
                              widget=forms.PasswordInput(attrs={'class': 'form-control'}),)
 
     date_joined = forms.DateField(label='date_joined', required=False)
+    editprofile=forms.CharField(initial=False)
+    # def validation(self):
+    #     if self.editprofile == True and self.password != self.verifypassword:
+    #         self.add_error('verifypassword','password dosent match')
+
+
+
+
 

@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
 
 # Create your views here.
 from users.forms import UserForm
@@ -50,9 +50,9 @@ def edit(request, id):
             # mark.user = request.user.id
             user.username = form.cleaned_data['username']
             user.email = form.cleaned_data['email']
-            if form.cleaned_data['changepassword']:
-                user.password = form.cleaned_data['password']
-
+            # return HttpResponse(request.POST['changepassword'])
+            if request.POST['changepassword'] == 'on':
+                user.set_password(form.cleaned_data['password'])
             user.save()
 
             return redirect('/admins/users/')
@@ -65,7 +65,7 @@ def edit(request, id):
             'username': user.username,
             'email': user.email,
         })
-        
+
         return render(request, 'user/edit.html', {'form': form})
 
 
@@ -77,4 +77,3 @@ def delete(request):
         user = User.objects.get(id=request.POST['userid'])
         user.delete()
     return redirect('/admins/users/')
-

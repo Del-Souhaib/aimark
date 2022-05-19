@@ -4,12 +4,13 @@ import cv2
 from django.contrib.auth.models import User
 from django.core.files.storage import Storage
 from django.core.mail import send_mail
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.templatetags.static import static
+from rest_framework.response import Response
 
 from marks.forms import MarkForm
 from marks.models import *
@@ -36,10 +37,10 @@ def home(request):
         redmarks = Mark.objects.filter(gravity__gte=70).count()
         gravitieschart = {'greenmarks': greenmarks, 'yellowmarks': yellowmarks, 'redmarks': redmarks}
 
-        userchart = User.objects.select_related("marks").all()
-        return HttpResponse(userchart)
+        userchart = User.objects.select_related().annotate(nb=Count('marks'))
         data = {'lastmarks': lastmarks, 'nbmarks': nbmarks, 'gravitieschart': gravitieschart,
-                'nbusers': nbusers, 'nbpoints': nbpoints, 'todaygravities': todaygravities}
+                'nbusers': nbusers, 'nbpoints': nbpoints, 'todaygravities': todaygravities,
+                'userchart':userchart}
 
         return render(request, 'index.html', data)
     else:
