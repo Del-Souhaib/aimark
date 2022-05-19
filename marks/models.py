@@ -9,7 +9,7 @@ from django.utils.datetime_safe import datetime
 fs=FileSystemStorage(location='/marks')
 
 class Mark(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="marks")
     name = models.CharField(max_length=100, null=False)
     image = models.ImageField(max_length=100, null=False,upload_to='marks/')
     desctiption = models.CharField(max_length=500, null=False)
