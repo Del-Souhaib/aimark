@@ -28,7 +28,9 @@ router = routers.DefaultRouter()
 # router.register(r'api/users', apiviews.UserViewSet)
 
 urlpatterns = [
-                  # path('admin/', admin.site.urls),
+                  path('admin/', admin.site.urls),
+                  path('accounts/', include('django.contrib.auth.urls')),
+
                   path('admins/', include('authenticate.urls')),
                   path('admins/marks/', include('marks.urls')),
                   path('admins/users/', include('users.urls')),

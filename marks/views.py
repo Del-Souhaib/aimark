@@ -3,6 +3,7 @@ import datetime
 import cv2
 from django.contrib.auth.models import User
 from django.core.files.storage import Storage
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -19,7 +20,13 @@ import cv2 as cv
 def home(request):
     if request.user.is_authenticated == True:
         # print(cv.__version__)
-        return render(request, 'index.html')
+        lastmarks=Mark.objects.order_by('id')[0:5]
+        nbmarks=Mark.objects.all().count()
+        nbusers=User.objects.all().count()
+        nbpoints=Point.objects.all().count()
+        data={'lastmarks':lastmarks,'nbmarks': nbmarks,
+                                             'nbusers':nbusers,'nbpoints':nbpoints}
+        return render(request, 'index.html',data)
     else:
         return redirect('/admins/login')
 
@@ -45,6 +52,9 @@ def add(request):
                         , desctiption=form.cleaned_data['desctiption'], image=form.cleaned_data['image']
                         , gravity=form.cleaned_data['gravity'] * 10, created_at=datetime.today())
             mark.save()
+            mailmessage=request.user.username+" added a mark thats have the id "+str(mark.id)
+            mail(request, 'Mark added', mailmessage)
+
             return redirect('/admins/marks/edit/' + str(mark.id))
         else:
             return render(request, 'mark/add.html', {'form': form})
@@ -62,6 +72,8 @@ def edit(request, id):
     if request.method == 'POST':
         form = MarkForm(request.POST, request.FILES)
         if form.is_valid():
+
+
             # mark.user = request.user.id
             mark.name = form.cleaned_data['title']
             mark.desctiption = form.cleaned_data['desctiption']
@@ -71,6 +83,9 @@ def edit(request, id):
             mark.gravity = form.cleaned_data['gravity'] * 10
             mark.descx=form.cleaned_data['descx']
             mark.descy=form.cleaned_data['descy']
+            mailmessage=request.user.username+" edited a mark thats have the id "+str(id)
+
+            mail(request, 'Mark edited', mailmessage)
 
             mark.save()
 
@@ -102,6 +117,9 @@ def delete(request):
     if request.method == 'POST':
         mark = Mark.objects.get(id=request.POST['markid'])
         mark.delete()
+        mailmessage = request.user.username + " deleted a mark thats have the id " + request.POST['markid']
+        mail(request,'Mark deleted',mailmessage)
+
     return redirect('/admins/marks/')
 
 def search(request):
@@ -133,4 +151,17 @@ def deletepoint(request, id):
     if request.method == 'POST':
         # HttpResponse(request.POST['x'])
         Point.objects.filter(mark=id).delete()
+        mailmessage = request.user.username + " deleted points of the mark thats have the id " + str(id)
+
+        mail(request,'Points deleted',mailmessage)
         return redirect('/admins/marks/edit/'+str(id))
+
+
+
+def mail(request,subject,message):
+    send_mail(
+        subject,
+        message,
+        'info@aimark.com',
+        ['del.souhaib@gmail.com', request.user.email],
+    )

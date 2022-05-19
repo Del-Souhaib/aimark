@@ -139,3 +139,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'e6cbe448f579c8'
+EMAIL_HOST_PASSWORD = '16c7cc8d9f7cc3'
+EMAIL_PORT = '2525'
+

@@ -41,16 +41,22 @@
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-dark rounded-circle">
-                                <i class="mdi mdi-calendar-today text-success"></i>
+
+                    <form method="post" action="/admins/logoutclick" class="dropdown-item preview-item">
+                        {% csrf_token %}
+                        <button class="border-0 p-0 text-light d-flex align-items-center"
+                                style="background: transparent">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-logout text-danger"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
-                        </div>
-                    </a>
+                            <div class="preview-item-content">
+                                <p class="preview-subject mb-1 text-small">Log out</p>
+                            </div>
+                        </button>
+                    </form>
+
                 </div>
             </div>
         </li>
